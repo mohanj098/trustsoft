@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
     lastintext: {
         color: 'blue',
-        fontSize: 20,
+        fontSize: 15,
         textDecoration: 'underline'
     }
 }));
