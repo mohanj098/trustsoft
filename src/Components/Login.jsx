@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -6,7 +6,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { Grid, Link } from '@material-ui/core';
+import { Link } from '@material-ui/core';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from '../features/UserSlice';
 
 const useStyles = makeStyles((theme) => ({
     avatarClass: {
@@ -30,8 +33,32 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Login() {
+    const [handle, sethandle] = useState("");
+    const [password, setpassword] = useState("");
     const classes = useStyles();
     const preventDefault = (event) => event.preventDefault();
+
+    const dispatch = useDispatch()
+
+    const submitform = (event) => {
+        event.preventDefault();
+        axios({
+            method: 'post',
+            url: 'http://52.66.70.51:3000/storeadmin/login',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: {
+                handle,
+                password
+            }
+
+        })
+            .then(res => {
+                    dispatch(login({ token: res.data.token, loggedIn: true, }))
+                })
+            .catch(e => alert(e.response.data.reason))
+    }
     return (
         <Box boxShadow={5} width={500} margin="auto" marginTop={25} padding={3} justifyContent="center">
             <Avatar className={classes.avatarClass}>
@@ -40,12 +67,14 @@ export default function Login() {
             <Typography variant="h4" className={classes.signintext}>
                 Sign in
             </Typography>
-            <form  noValidate>
+            <form onSubmit={submitform} noValidate>
                 <TextField
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
+                    value={handle}
+                    onChange={e => sethandle(e.target.value)}
                     id="email"
                     label="Email Address"
                     name="email"
@@ -57,6 +86,8 @@ export default function Login() {
                     margin="normal"
                     required
                     fullWidth
+                    value={password}
+                    onChange={e => setpassword(e.target.value)}
                     name="password"
                     label="Password"
                     type="password"

@@ -1,20 +1,18 @@
 import React from 'react';
-import {
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { selectUser } from './features/UserSlice';
 import One from './One';
 import Two from './Two';
 
 
 function App() {
+  const user= useSelector(selectUser);
+
   return (
-    <Switch>
-      <Route exact path='/' component={One}/>
-      <Route exact path='/one' component={One}/>
-      <Route exact path='/two' component={Two}/>
-    </Switch>
+    <div>
+      {user  ? <Two/> : <One/>}
+    </div>
+    
     
   )
 }

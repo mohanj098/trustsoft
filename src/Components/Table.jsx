@@ -1,4 +1,4 @@
-import { Switch, Table, TableBody, TableCell, TableHead, TableRow, Fab, TableContainer } from '@material-ui/core';
+import { Switch, Table, TableBody, TableCell, TableHead, TableRow, Fab } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import React from 'react';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -33,7 +33,8 @@ const StyledTableCell = withStyles(() => ({
 }))(TableCell);
 
 
-export default function Final() {
+export default function Final(props) {
+    const data=props.data;
     const classes = useStyles();
     return (
         <Table className={classes.table}>
@@ -48,9 +49,9 @@ export default function Final() {
             </TableHead>
             <TableBody>
                 <TableRow>
-                    <StyledTableCell>Pant</StyledTableCell>
+                    <StyledTableCell>{data[0].name}</StyledTableCell>
                     <StyledTableCell>30%</StyledTableCell>
-                    <StyledTableCell>Flat 30% off on all pants</StyledTableCell>
+                    <StyledTableCell>{data[0].description}</StyledTableCell>
                     <StyledTableCell>
                         <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
                     </StyledTableCell>
@@ -61,9 +62,9 @@ export default function Final() {
                     </StyledTableCell>
                 </TableRow>
                 <TableRow>
-                    <StyledTableCell>Pant</StyledTableCell>
-                    <StyledTableCell>30%</StyledTableCell>
-                    <StyledTableCell>Flat 30% off on all pants</StyledTableCell>
+                    <StyledTableCell>{data[1].name}</StyledTableCell>
+                    <StyledTableCell>60%</StyledTableCell>
+                    <StyledTableCell>{data[1].description}</StyledTableCell>
                     <StyledTableCell>
                         <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
                     </StyledTableCell>
@@ -74,9 +75,9 @@ export default function Final() {
                     </StyledTableCell>
                 </TableRow>
                 <TableRow>
-                    <StyledTableCell>Pant</StyledTableCell>
-                    <StyledTableCell>30%</StyledTableCell>
-                    <StyledTableCell>Flat 30% off on all pants</StyledTableCell>
+                    <StyledTableCell>{data[2].name}</StyledTableCell>
+                    <StyledTableCell>1 on 2</StyledTableCell>
+                    <StyledTableCell>{data[2].description}</StyledTableCell>
                     <StyledTableCell>
                         <Switch inputProps={{ 'aria-label': 'primary checkbox' }} />
                     </StyledTableCell>
